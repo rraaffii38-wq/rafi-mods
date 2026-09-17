@@ -38,6 +38,7 @@
             width: 100%;
             height: 100%;
             z-index: 50;
+            background: #131b2e;
         }
         .form-box {
             position: absolute;
@@ -284,6 +285,21 @@
             color: #666;
             font-weight: normal;
         }
+        .room-details-box {
+            background: #eef2f5;
+            border: 1px dashed #00b386;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #111;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .room-details-box span b {
+            color: #d9534f;
+        }
         .progress-bar {
             width: 100%;
             height: 6px;
@@ -392,7 +408,9 @@
 
     <div class="container" id="mainContainer">
         
+        <!-- ================= AUTH SECTION ================= -->
         <div id="auth-section">
+            <!-- Login Form -->
             <div class="form-box login-box">
                 <h2>Member Login</h2>
                 <div class="input-group"><input type="email" id="loginEmail" placeholder="Email Address"></div>
@@ -401,6 +419,7 @@
                 <div class="toggle-link">Don't have an account? <span id="toRegister">Sign up</span></div>
             </div>
 
+            <!-- Register Form -->
             <div class="form-box register-box">
                 <h2>Create Account</h2>
                 <div class="input-group"><input type="text" id="regUsername" placeholder="Username"></div>
@@ -410,12 +429,14 @@
                 <div class="toggle-link">Already have an account? <span id="toLogin">Login</span></div>
             </div>
 
+            <!-- Side Welcome Overlay -->
             <div class="overlay-panel">
                 <h1 id="overlayTitle">WELCOME BACK!</h1>
                 <p id="overlayDesc">Hope you and your family have a great day ahead.</p>
             </div>
         </div>
 
+        <!-- ================= DASHBOARD ================= -->
         <div id="dashboard">
             <div class="app-header">FREE FIRE CHAMPIONSHIP</div>
             <div class="cards-container">
@@ -434,6 +455,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Bottom Nav -->
             <div class="bottom-nav">
                 <div class="nav-item" onclick="alert('Shop coming soon!')"><span class="icon">🛒</span><span>Shop</span></div>
                 <div class="nav-item active" onclick="goHome()"><span class="icon">🎮</span><span>Play</span></div>
@@ -443,6 +465,7 @@
             </div>
         </div>
 
+        <!-- MATCH LIST VIEW -->
         <div id="match-list-view">
             <div class="view-header">
                 <button class="back-btn" onclick="goHome()">← Back</button>
@@ -450,6 +473,7 @@
                 <div style="width: 40px;"></div>
             </div>
             <div id="matchCardsContainer"></div>
+            <!-- Bottom Nav -->
             <div class="bottom-nav">
                 <div class="nav-item" onclick="alert('Shop coming soon!')"><span class="icon">🛒</span><span>Shop</span></div>
                 <div class="nav-item active" onclick="goHome()"><span class="icon">🎮</span><span>Play</span></div>
@@ -459,6 +483,7 @@
             </div>
         </div>
 
+        <!-- PROFILE MODAL -->
         <div class="modal-overlay" id="profileModal">
             <div class="modal-card">
                 <div class="modal-title">👤 User Profile</div>
@@ -541,18 +566,19 @@
         });
 
         // ================= TOURNAMENT MATCHES DATA =================
-        // ekhane 'startTime'-er man 2026-09-19T10:00:00 mane agami kal sokal 10:00 ta bujhay.
-                let matchesData = [
+        let matchesData = [
             {
                 id: 1,
                 category: "BR Match",
-                title: "CHAMPIONSHIP",
-                startTime: "2026-09-18T02:30:00", 
-                winPrize: "00 TK",
+                title: "Solo Time | Mobile | Regular",
+                startTime: "2026-09-19T10:00:00", 
+                winPrize: "405 TK",
                 entryFee: "00 TK",
-                perKill: "00 TK",
+                perKill: "5 TK",
                 map: "Bermuda",
-                version: "MOBILE"
+                version: "MOBILE",
+                roomId: "9876543",
+                roomPass: "1234"
             },
             {
                 id: 2,
@@ -563,10 +589,11 @@
                 entryFee: "00 TK",
                 perKill: "10 TK",
                 map: "Kalahari",
-                version: "MOBILE"
+                version: "MOBILE",
+                roomId: "8885552",
+                roomPass: "5678"
             }
         ];
-
 
         let joinedMatches = JSON.parse(localStorage.getItem("joined_matches")) || {};
 
@@ -600,6 +627,18 @@
 
                 activeCount++;
                 const isJoined = joinedMatches[match.id];
+                const tenMinutes = 10 * 60 * 1000;
+
+                // শর্ত: ইউজার জয়েন করা থাকতে হবে এবং ম্যাচ শুরু হতে ১০ মিনিট বা তার কম সময় বাকি থাকতে হবে (অথবা ম্যাচ অলরেডি শুরু হয়ে গেছে)
+                let roomInfoHTML = '';
+                if (isJoined && diffTime <= tenMinutes) {
+                    roomInfoHTML = `
+                        <div class="room-details-box" id="room_box_${match.id}">
+                            <span>Room ID: <b>${match.roomId}</b></span>
+                            <span>Pass: <b>${match.roomPass}</b></span>
+                        </div>
+                    `;
+                }
 
                 let actionButtonHTML = '';
                 if (diffTime <= 0) {
@@ -611,7 +650,7 @@
                 }
 
                 const cardHTML = `
-                    <div class="match-card">
+                    <div class="match-card" id="card_${match.id}">
                         <div class="match-top">
                             <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200" alt="game">
                             <div class="match-info">
@@ -628,6 +667,9 @@
                             <span>Map: <b>${match.map}</b></span>
                             <span>Version: <b>${match.version}</b></span>
                         </div>
+                        <div id="room_container_${match.id}">
+                            ${roomInfoHTML}
+                        </div>
                         <div class="progress-bar"><div class="progress-fill"></div></div>
                         ${actionButtonHTML}
                     </div>
@@ -643,18 +685,24 @@
         window.joinMatch = function(matchId, category) {
             joinedMatches[matchId] = true;
             localStorage.setItem("joined_matches", JSON.stringify(joinedMatches));
-            alert("Successfully joined the match! Timer started.");
+            alert("Successfully joined the match! Room ID and Password will appear 10 minutes before the match starts.");
             renderMatches(category);
         }
 
-        // Live Timer Updater
+        // Live Timer & Dynamic Room ID Updater
         setInterval(() => {
             const now = new Date().getTime();
+            const tenMinutes = 10 * 60 * 1000;
+
             matchesData.forEach(match => {
                 if (joinedMatches[match.id]) {
                     const timerElem = document.getElementById(`timer_${match.id}`);
+                    const roomContainer = document.getElementById(`room_container_${match.id}`);
+                    const matchTime = new Date(match.startTime).getTime();
+                    const dist = matchTime - now;
+
+                    // টাইমার আপডেট
                     if (timerElem) {
-                        const dist = new Date(match.startTime).getTime() - now;
                         if (dist > 0) {
                             const hours = Math.floor(dist / (1000 * 60 * 60));
                             const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
@@ -663,6 +711,18 @@
                         } else {
                             timerElem.innerText = "Match Started";
                             timerElem.className = "match-action-btn started";
+                        }
+                    }
+
+                    // ১০ মিনিট বা তার কম বাকি থাকলে এবং রুম কন্টেইনার খালি থাকলে স্বয়ংক্রিয়ভাবে রুম আইডি শো করবে
+                    if (roomContainer && dist <= tenMinutes) {
+                        if (!document.getElementById(`room_box_${match.id}`)) {
+                            roomContainer.innerHTML = `
+                                <div class="room-details-box" id="room_box_${match.id}">
+                                    <span>Room ID: <b>${match.roomId}</b></span>
+                                    <span>Pass: <b>${match.roomPass}</b></span>
+                                </div>
+                            `;
                         }
                     }
                 }
@@ -680,29 +740,23 @@
             document.getElementById('profileModal').style.display = 'none';
         }
 
-                        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user) => {
             const authSec = document.getElementById('auth-section');
             const dash = document.getElementById('dashboard');
             
             if (user) {
-                // ইউজার লগইন করা থাকলে লগইন সেকশন অফ থাকবে, ড্যাশবোর্ড চালু থাকবে
                 authSec.style.display = 'none';
                 if(document.getElementById('match-list-view').style.display !== 'flex') {
                     dash.style.display = 'flex';
                 }
             } else {
-                // ইউজার লগইন করা না থাকলে শুধু লগইন পেজ দেখাবে
                 authSec.style.display = 'flex';
                 dash.style.display = 'none';
                 document.getElementById('match-list-view').style.display = 'none';
                 mainContainer.classList.remove('active');
             }
         });
-
-
     </script>
 </body>
 </html>
-
-
 
