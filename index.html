@@ -154,6 +154,222 @@
             padding: 2rem;
             color: #64748b;
             border-top: 1px solid #1e293b;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAFI MODS - Game Vault</title>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0b0f19;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #1e1b4b, #0f172a);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid #1e293b;
+        }
+        header h1 {
+            color: #38bdf8;
+            font-size: 2.6rem;
+            margin-bottom: 0.2rem;
+            letter-spacing: 1px;
+        }
+        header p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .social-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        .social-btn.telegram {
+            background-color: #229ed9;
+        }
+        .social-btn.youtube {
+            background-color: #ff0000;
+        }
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.75rem 1rem;
+            border-radius: 25px;
+            border: 1px solid #334155;
+            background-color: #1e293b;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-box input:focus {
+            border-color: #38bdf8;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .game-card {
+            background-color: #1e293b;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid #334155;
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+        .game-card:hover {
+            transform: translateY(-6px);
+            border-color: #38bdf8;
+        }
+        .game-info {
+            padding: 1.5rem;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #0369a1;
+            color: #e0f2fe;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        .game-info h3 {
+            color: #f8fafc;
+            font-size: 1.35rem;
+            margin-bottom: 0.4rem;
+        }
+        .game-info p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+        .meta {
+            font-size: 0.8rem;
+            color: #38bdf8;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+        .download-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            text-align: center;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+        
+        /* Download page layout styling */
+        .download-page-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: #1e293b;
+            border-radius: 14px;
+            border: 1px solid #334155;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+        .download-page-container h2 {
+            color: #38bdf8;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        .download-page-container p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+        .timer-box {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f59e0b;
+            margin: 1.5rem 0;
+        }
+        .get-link-btn {
+            display: inline-block;
+            width: 100%;
+            background-color: #475569;
+            color: #94a3b8;
+            text-align: center;
+            padding: 0.9rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            pointer-events: none;
+            transition: background 0.3s, color 0.3s;
+        }
+        .get-link-btn.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            pointer-events: auto;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            grid-column: 1 / -1;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            padding: 2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            border-top: 1px solid #1e293b;
             margin-top: 3rem;
             font-size: 0.9rem;
         }
@@ -161,16 +377,16 @@
 </head>
 <body>
 
-    <header>
+    <header id="mainHeader">
         <h1>RAFI MODS</h1>
         <p>Your ultimate destination for exclusive APKs & mods</p>
         
         <!-- Social Buttons -->
         <div class="social-buttons">
-            <a href="https://t.me/FCMoDMen" class="social-btn telegram" target="_blank">
+            <a href="https://t.me/apnar_username" class="social-btn telegram" target="_blank">
                 <i class="fab fa-telegram-plane"></i> Join Telegram
             </a>
-            <a href="YOUR_YOUTUBE_LINK_HERE" class="social-btn youtube" target="_blank">
+            <a href="https://youtube.com/@apnar_channel" class="social-btn youtube" target="_blank">
                 <i class="fab fa-youtube"></i> Subscribe YouTube
             </a>
         </div>
@@ -180,8 +396,8 @@
         </div>
     </header>
 
-    <div class="container" id="gameContainer">
-        <!-- Games list will load here -->
+    <div class="container" id="appContent">
+        <!-- Dynamic content (Home list or Download page) will load here -->
     </div>
 
     <footer>
@@ -189,64 +405,123 @@
     </footer>
 
     <script>
-        // Ekhane game gular list dewa ache. Notun game add ba edit korte hole ekhane data change korben:
+        // Game list-er data. ID diye alada page control kora hobe.
         const allGames = [
             {
+                id: 1,
                 name: "Free Fire Max (Mod Menu)",
                 category: "Action",
                 size: "750 MB",
                 version: "v2.19",
                 desc: "Unlocked skins, aimbot fixed, smooth graphic experience for high performance.",
-                link: "YOUR_DOWNLOAD_LINK_HERE"
+                link: "https://example.com/download-link-1"
             },
             {
+                id: 2,
                 name: "Last Island Survival",
                 category: "Survival",
                 size: "920 MB",
                 version: "v1.0.5",
                 desc: "Open-world offline survival game with realistic graphics and crafting features.",
-                link: "YOUR_DOWNLOAD_LINK_HERE"
+                link: "https://example.com/download-link-2"
             }
         ];
 
-        const gameContainer = document.getElementById('gameContainer');
-        const searchInput = document.getElementById('searchInput');
+        const appContent = document.getElementById('appContent');
+        const mainHeader = document.getElementById('mainHeader');
 
-        function displayGames(games) {
-            if (games.length === 0) {
-                gameContainer.innerHTML = `<div class="loading">No games found!</div>`;
+        function renderHome(gamesToDisplay) {
+            mainHeader.style.display = 'block';
+            if (gamesToDisplay.length === 0) {
+                appContent.innerHTML = `<div class="loading">No games found!</div>`;
                 return;
             }
 
-            gameContainer.innerHTML = '';
-            games.forEach(game => {
-                const card = document.createElement('div');
-                card.className = 'game-card';
-                
-                card.innerHTML = `
-                    <div class="game-info">
-                        <span class="badge">${game.category}</span>
-                        <h3>${game.name}</h3>
-                        <div class="meta">Size: ${game.size} | Version: ${game.version}</div>
-                        <p>${game.desc}</p>
-                        <a href="${game.link}" class="download-btn" target="_blank">Download APK</a>
+            let html = '';
+            gamesToDisplay.forEach(game => {
+                html += `
+                    <div class="game-card">
+                        <div class="info game-info">
+                            <span class="badge">${game.category}</span>
+                            <h3>${game.name}</h3>
+                            <div class="meta">Size: ${game.size} | Version: ${game.version}</div>
+                            <p>${game.desc}</p>
+                            <button class="download-btn" onclick="goToDownloadPage(${game.id})">Download APK</button>
+                        </div>
                     </div>
                 `;
-                gameContainer.appendChild(card);
             });
+            appContent.innerHTML = html;
         }
 
-        searchInput.addEventListener('input', (e) => {
-            const searchText = e.target.value.toLowerCase();
-            const filteredGames = allGames.filter(game => 
-                game.name.toLowerCase().includes(searchText) || 
-                game.category.toLowerCase().includes(searchText)
-            );
-            displayGames(filteredGames);
-        });
+        function goToDownloadPage(gameId) {
+            const game = allGames.find(g => g.id === gameId);
+            if (!game) return;
 
-        // Initial load
-        displayGames(allGames);
+            mainHeader.style.display = 'none';
+            
+            appContent.innerHTML = `
+                <div class="download-page-container">
+                    <h2>${game.name}</h2>
+                    <div class="meta" style="margin-bottom: 1rem;">Version: ${game.version} | Size: ${game.size}</div>
+                    <p>${game.desc}</p>
+                    
+                    <hr style="border: 0; border-top: 1px solid #334155; margin: 1.5rem 0;">
+                    
+                    <p style="margin-bottom: 0.5rem; font-weight: bold;">Your download link is ready in:</p>
+                    <div class="timer-box" id="timer">10</div>
+                    
+                    <a href="${game.link}" id="getLinkBtn" class="get-link-btn" target="_blank">Get Link</a>
+                    
+                    <br>
+                    <a href="#" class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                </div>
+            `;
+
+            startCountdown(game.link);
+        }
+
+        function startCountdown(downloadUrl) {
+            let timeLeft = 10;
+            const timerElement = document.getElementById('timer');
+            const getLinkBtn = document.getElementById('getLinkBtn');
+
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    timerElement.textContent = "Ready!";
+                    getLinkBtn.textContent = "Download Now 🚀";
+                    getLinkBtn.classList.add('active');
+                }
+            }, 1000);
+        }
+
+        function goHome(e) {
+            e.preventDefault();
+            renderHome(allGames);
+        }
+
+        // Search listener setup function
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const searchText = e.target.value.toLowerCase();
+                    const filtered = allGames.filter(g => 
+                        g.name.toLowerCase().includes(searchText) || 
+                        g.category.toLowerCase().includes(searchText)
+                    );
+                    renderHome(filtered);
+                });
+            }
+        }
+
+        // Initial Load
+        renderHome(allGames);
+        setupSearch();
     </script>
 </body>
 </html>
