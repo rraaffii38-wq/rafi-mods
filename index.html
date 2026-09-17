@@ -102,16 +102,10 @@
             transform: translateY(-6px);
             border-color: #38bdf8;
         }
-        
-        /* Patched Card Styles */
         .game-card.patched {
             border-color: #ef4444;
             background-color: #1a0f13;
         }
-        .game-card.patched:hover {
-            border-color: #f87171;
-        }
-        
         .game-info {
             padding: 1.6rem;
         }
@@ -131,7 +125,6 @@
             color: #f87171;
             border-color: rgba(239, 68, 68, 0.3);
         }
-
         .game-info h3 {
             color: #f8fafc;
             font-size: 1.35rem;
@@ -173,10 +166,6 @@
             cursor: not-allowed;
             box-shadow: 0 4px 12px rgba(153, 27, 27, 0.4);
         }
-        .download-btn.patched-btn:hover {
-            transform: none;
-            opacity: 1;
-        }
         
         .download-page-container {
             max-width: 550px;
@@ -205,11 +194,42 @@
             margin-bottom: 1.2rem;
             font-size: 0.95rem;
         }
+        
+        /* GET ZIP PASS Button Box */
+        .password-box {
+            background-color: #1e293b;
+            border: 1px dashed #38bdf8;
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+        .get-pass-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            transition: transform 0.2s, opacity 0.2s;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        .get-pass-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
         .timer-box {
             font-size: 3rem;
             font-weight: 800;
             color: #fbbf24;
-            margin: 1.2rem 0;
+            margin: 1rem 0;
             text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         }
         .get-link-btn {
@@ -246,7 +266,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            margin-top: 1.8rem;
+            margin-top: 1.5rem;
             color: #38bdf8;
             text-decoration: none;
             font-size: 0.95rem;
@@ -302,7 +322,6 @@
     </footer>
 
     <script>
-        //ekhane je kono mod-e "patched: true" kore dilei ota lal hoye jabe ebong download block hoye jabe.
         const allGames = [
             {
                 id: 1,
@@ -311,8 +330,9 @@
                 size: "480 MB",
                 version: "OB55",
                 desc: "Advanced proxy mode menu built for OB55 update with anti-ban protection and safe features.",
-                link: "https://example.com/download-1",
-                patched: false // Sothik ache (Normal)
+                link: "https://www.mediafire.com/file/example1/file",
+                passLink: "https://t.me/FCMoDMen", // Ekhane apnar onno website/telegram link dite parben
+                patched: false
             },
             {
                 id: 2,
@@ -321,8 +341,9 @@
                 size: "460 MB",
                 version: "OB55",
                 desc: "Special OB55 build optimized for high accuracy body headshot locking and smooth aim.",
-                link: "https://example.com/download-2",
-                patched: true  // Ekhane 'true' koray eta Patched (Lal) hoye geche!
+                link: "https://www.mediafire.com/file/example2/file",
+                passLink: "https://t.me/FCMoDMen",
+                patched: true
             },
             {
                 id: 3,
@@ -331,7 +352,8 @@
                 size: "490 MB",
                 version: "OB55",
                 desc: "OB55 edition featuring ultra-fast drag headshot sensitivity and custom crosshair.",
-                link: "https://example.com/download-3",
+                link: "https://www.mediafire.com/file/example3/file",
+                passLink: "https://t.me/FCMoDMen",
                 patched: false
             },
             {
@@ -341,8 +363,9 @@
                 size: "450 MB",
                 version: "OB54",
                 desc: "Exclusive OB54 Drip Client packed with custom themes, emotes unlocker, and glowing effects.",
-                link: "https://example.com/download-4",
-                patched: true  // Etao Patched kora
+                link: "https://www.mediafire.com/file/example4/file",
+                passLink: "https://t.me/FCMoDMen",
+                patched: true
             },
             {
                 id: 5,
@@ -351,7 +374,8 @@
                 size: "475 MB",
                 version: "OB54",
                 desc: "Standard OB54 proxy mode menu with bypass tools and fast network response.",
-                link: "https://example.com/download-5",
+                link: "https://www.mediafire.com/file/example5/file",
+                passLink: "https://t.me/FCMoDMen",
                 patched: false
             },
             {
@@ -361,7 +385,8 @@
                 size: "440 MB",
                 version: "OB54",
                 desc: "Classic OB54 drag headshot config loaded directly into client for seamless gameplay.",
-                link: "https://example.com/download-6",
+                link: "https://www.mediafire.com/file/example6/file",
+                passLink: "https://t.me/FCMoDMen",
                 patched: false
             }
         ];
@@ -406,7 +431,6 @@
             if (mainHeader) mainHeader.style.display = 'none';
             
             if (game.patched) {
-                // Jodi game patched hoy tah ete ai view dekhabe
                 appContent.innerHTML = `
                     <div class="download-page-container patched-page">
                         <h2>${game.name}</h2>
@@ -431,14 +455,20 @@
                     </div>
                 `;
             } else {
-                // Normal download page with timer
                 appContent.innerHTML = `
                     <div class="download-page-container">
                         <h2>${game.name}</h2>
                         <div class="meta" style="margin-bottom: 1rem;"><span class="badge">${game.category}</span> &bull; Version: ${game.version} &bull; Size: ${game.size}</div>
                         <p>${game.desc}</p>
                         
-                        <hr style="border: 0; border-top: 1px solid #1f2937; margin: 1.5rem 0;">
+                        <!-- GET ZIP PASS Button -->
+                        <div class="password-box">
+                            <a href="${game.passLink}" target="_blank" class="get-pass-btn">
+                                <i class="fas fa-key"></i> GET ZIP PASS
+                            </a>
+                        </div>
+                        
+                        <hr style="border: 0; border-top: 1px solid #1f2937; margin: 1.2rem 0;">
                         
                         <p style="margin-bottom: 0.2rem; color: #94a3b8; font-weight: 500;">Your download link is ready in:</p>
                         <div class="timer-box" id="timer">10</div>
