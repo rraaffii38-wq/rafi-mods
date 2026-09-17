@@ -546,11 +546,11 @@
             {
                 id: 1,
                 category: "BR Match",
-                title: "Solo Time | Mobile | Regular",
-                startTime: "2026-09-19T10:00:00", 
-                winPrize: "405 TK",
+                title: "CHAMPIONSHIP",
+                startTime: "2026-09-18T02:30:00", 
+                winPrize: "00 TK",
                 entryFee: "00 TK",
-                perKill: "5 TK",
+                perKill: "00 TK",
                 map: "Bermuda",
                 version: "MOBILE"
             },
@@ -680,22 +680,25 @@
             document.getElementById('profileModal').style.display = 'none';
         }
 
-                onAuthStateChanged(auth, (user) => {
+                        onAuthStateChanged(auth, (user) => {
             const authSec = document.getElementById('auth-section');
             const dash = document.getElementById('dashboard');
-            const matchList = document.getElementById('match-list-view');
-
+            
             if (user) {
+                // ইউজার লগইন করা থাকলে লগইন সেকশন অফ থাকবে, ড্যাশবোর্ড চালু থাকবে
                 authSec.style.display = 'none';
-                // ইউজার যে পেজে ছিল (হোম নাকি ম্যাচ লিস্ট), রিফ্রেশ করলে যেন সেখানেই থাকে
-                // যদি ম্যাচ লিস্ট ভিউ ওপেন থাকে তবে ওটাই দেখাবে, না হলে ড্যাশবোর্ড দেখাবে
+                if(document.getElementById('match-list-view').style.display !== 'flex') {
+                    dash.style.display = 'flex';
+                }
             } else {
+                // ইউজার লগইন করা না থাকলে শুধু লগইন পেজ দেখাবে
                 authSec.style.display = 'flex';
                 dash.style.display = 'none';
-                matchList.style.display = 'none';
+                document.getElementById('match-list-view').style.display = 'none';
                 mainContainer.classList.remove('active');
             }
         });
+
 
     </script>
 </body>
