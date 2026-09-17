@@ -392,9 +392,7 @@
 
     <div class="container" id="mainContainer">
         
-        <!-- ================= AUTH SECTION ================= -->
         <div id="auth-section">
-            <!-- Login Form -->
             <div class="form-box login-box">
                 <h2>Member Login</h2>
                 <div class="input-group"><input type="email" id="loginEmail" placeholder="Email Address"></div>
@@ -403,7 +401,6 @@
                 <div class="toggle-link">Don't have an account? <span id="toRegister">Sign up</span></div>
             </div>
 
-            <!-- Register Form -->
             <div class="form-box register-box">
                 <h2>Create Account</h2>
                 <div class="input-group"><input type="text" id="regUsername" placeholder="Username"></div>
@@ -413,14 +410,12 @@
                 <div class="toggle-link">Already have an account? <span id="toLogin">Login</span></div>
             </div>
 
-            <!-- Side Welcome Overlay -->
             <div class="overlay-panel">
                 <h1 id="overlayTitle">WELCOME BACK!</h1>
                 <p id="overlayDesc">Hope you and your family have a great day ahead.</p>
             </div>
         </div>
 
-        <!-- ================= DASHBOARD ================= -->
         <div id="dashboard">
             <div class="app-header">FREE FIRE CHAMPIONSHIP</div>
             <div class="cards-container">
@@ -439,7 +434,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Bottom Nav -->
             <div class="bottom-nav">
                 <div class="nav-item" onclick="alert('Shop coming soon!')"><span class="icon">🛒</span><span>Shop</span></div>
                 <div class="nav-item active" onclick="goHome()"><span class="icon">🎮</span><span>Play</span></div>
@@ -449,7 +443,6 @@
             </div>
         </div>
 
-        <!-- MATCH LIST VIEW -->
         <div id="match-list-view">
             <div class="view-header">
                 <button class="back-btn" onclick="goHome()">← Back</button>
@@ -457,7 +450,6 @@
                 <div style="width: 40px;"></div>
             </div>
             <div id="matchCardsContainer"></div>
-            <!-- Bottom Nav -->
             <div class="bottom-nav">
                 <div class="nav-item" onclick="alert('Shop coming soon!')"><span class="icon">🛒</span><span>Shop</span></div>
                 <div class="nav-item active" onclick="goHome()"><span class="icon">🎮</span><span>Play</span></div>
@@ -467,7 +459,6 @@
             </div>
         </div>
 
-        <!-- PROFILE MODAL -->
         <div class="modal-overlay" id="profileModal">
             <div class="modal-card">
                 <div class="modal-title">👤 User Profile</div>
@@ -511,7 +502,7 @@
             overlayDesc.innerText = "Hope you and your family have a great day ahead.";
         });
 
-        // Register Action with full error catch
+        // Register Action
         document.getElementById('regAuthBtn').addEventListener('click', async () => {
             const username = document.getElementById('regUsername').value.trim();
             const email = document.getElementById('regEmail').value.trim();
@@ -532,7 +523,7 @@
             }
         });
 
-        // Login Action with full error catch
+        // Login Action
         document.getElementById('loginBtn').addEventListener('click', async () => {
             const email = document.getElementById('loginEmail').value.trim();
             const pass = document.getElementById('loginPassword').value;
@@ -544,37 +535,38 @@
             
             try {
                 await signInWithEmailAndPassword(auth, email, pass);
-                // Success will automatically trigger onAuthStateChanged
             } catch(e) { 
                 alert("Login Failed: " + e.message); 
             }
         });
 
-        // Tournament Matches Data
+        // ================= TOURNAMENT MATCHES DATA =================
+        // ekhane 'startTime'-er man 2026-09-19T10:00:00 mane agami kal sokal 10:00 ta bujhay.
         let matchesData = [
             {
                 id: 1,
                 category: "BR Match",
-                title: "Solo Time | Mobile | Regular",
-                startTime: new Date(new Date().getTime() + 10 * 60000), 
-                winPrize: "405 TK",
-                entryFee: "10 TK",
-                perKill: "5 TK",
+                title: "CHAMPIONSHIP ",
+                startTime: "2026-09-18T10:00:00", 
+                winPrize: "00 TK",
+                entryFee: "00 TK",
+                perKill: "00 TK",
                 map: "Bermuda",
                 version: "MOBILE"
             },
             {
                 id: 2,
-                category: "Clash Squad",
+                category: "CHAMPIONSHIP",
                 title: "Squad Clash | Custom | Pro",
-                startTime: new Date(new Date().getTime() + 5 * 60000), 
-                winPrize: "800 TK",
-                entryFee: "20 TK",
-                perKill: "10 TK",
-                map: "Kalahari",
+                startTime: "2026-09-18T02:20:00", 
+                winPrize: "00 TK",
+                entryFee: "00 TK",
+                perKill: "00 TK",
+                map: "Bermuda",
                 version: "MOBILE"
-            }
-        ];
+            },      
+                
+       ];
 
         let joinedMatches = JSON.parse(localStorage.getItem("joined_matches")) || {};
 
@@ -602,7 +594,7 @@
 
                 const matchTime = new Date(match.startTime).getTime();
                 const diffTime = matchTime - now;
-                const hideTimeLimit = 10 * 60 * 1000; 
+                const hideTimeLimit = 24 * 60 * 60 * 1000; 
 
                 if (diffTime < -hideTimeLimit) return;
 
@@ -664,9 +656,10 @@
                     if (timerElem) {
                         const dist = new Date(match.startTime).getTime() - now;
                         if (dist > 0) {
+                            const hours = Math.floor(dist / (1000 * 60 * 60));
                             const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
                             const s = Math.floor((dist % (1000 * 60)) / 1000);
-                            timerElem.innerText = `STARTS IN - 0${Math.floor(dist/(1000*60*60))}:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+                            timerElem.innerText = `STARTS IN - ${hours < 10 ? '0'+hours : hours}:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
                         } else {
                             timerElem.innerText = "Match Started";
                             timerElem.className = "match-action-btn started";
@@ -700,5 +693,6 @@
     </script>
 </body>
 </html>
+
 
 
