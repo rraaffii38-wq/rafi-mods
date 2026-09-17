@@ -3,526 +3,702 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAFI MODS - Game Vault</title>
-    <meta name="google-site-verification" content="MyBq8_hPdi5UNlfRNqyTxTbqaycG7NX9Wxhxfg6pbQ0" />
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Free Fire Tournament Championship</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #07090e;
-            color: #f1f5f9;
-            line-height: 1.6;
-        }
-        header {
-            background: linear-gradient(135deg, #0f172a, #1e1b4b);
-            padding: 2.5rem 1rem;
-            text-align: center;
-            border-bottom: 2px solid #1e293b;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-        header h1 {
-            color: #38bdf8;
-            font-size: 2.6rem;
-            margin-bottom: 0.2rem;
-            letter-spacing: 1px;
-            text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-        }
-        header p {
-            color: #94a3b8;
-            font-size: 1rem;
-            margin-bottom: 1.2rem;
-        }
-        .social-buttons {
+            background: #090d16;
+            color: #ffffff;
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 1.5rem;
-        }
-        .social-btn {
-            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 0.55rem 1.25rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: white;
-            transition: transform 0.2s, opacity 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .social-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.95;
-        }
-        .social-btn.telegram {
-            background-color: #229ed9;
-        }
-        .social-btn.youtube {
-            background-color: #ef4444;
-        }
-        .search-box input {
-            width: 100%;
-            max-width: 400px;
-            padding: 0.8rem 1.2rem;
-            border-radius: 25px;
-            border: 1px solid #334155;
-            background-color: #111827;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .search-box input:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            min-height: 100vh;
         }
         .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        .game-card {
-            background-color: #111827;
-            border-radius: 16px;
+            position: relative;
+            width: 780px;
+            height: 520px;
+            background: #131b2e;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            border: 1px solid #1f2937;
-            transition: transform 0.3s ease, border-color 0.3s;
+            border: 1px solid rgba(0, 255, 204, 0.2);
         }
-        .game-card:hover {
-            transform: translateY(-6px);
-            border-color: #38bdf8;
-        }
-        .game-card.patched {
-            border-color: #ef4444;
-            background-color: #1a0f13;
-        }
-        .game-info {
-            padding: 1.6rem;
-        }
-        .badge {
-            display: inline-block;
-            background-color: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            font-size: 0.75rem;
-            padding: 0.25rem 0.7rem;
-            border-radius: 20px;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-        .badge.patched-badge {
-            background-color: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-        .game-info h3 {
-            color: #f8fafc;
-            font-size: 1.35rem;
-            margin-bottom: 0.4rem;
-        }
-        .game-info p {
-            color: #94a3b8;
-            font-size: 0.92rem;
-            margin-bottom: 1.2rem;
-        }
-        .meta {
-            font-size: 0.82rem;
-            color: #cbd5e1;
-            margin-bottom: 0.8rem;
-            font-weight: 500;
-        }
-        .download-btn {
-            display: block;
+        
+        /* ================= AUTH SECTION ================= */
+        #auth-section {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            text-align: center;
-            padding: 0.8rem;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: opacity 0.2s, transform 0.2s;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+            height: 100%;
+            z-index: 50;
         }
-        .download-btn:hover {
-            opacity: 0.95;
-            transform: scale(1.02);
-        }
-        .download-btn.patched-btn {
-            background: linear-gradient(135deg, #991b1b, #7f1d1d);
-            color: #fca5a5;
-            cursor: not-allowed;
-            box-shadow: 0 4px 12px rgba(153, 27, 27, 0.4);
-        }
-        
-        .download-page-container {
-            max-width: 550px;
-            margin: 3.5rem auto;
-            padding: 2.2rem;
-            background-color: #111827;
-            border-radius: 20px;
-            border: 1px solid #1f2937;
-            text-align: center;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-        }
-        .download-page-container.patched-page {
-            border-color: #ef4444;
-            background-color: #1a0f13;
-        }
-        .download-page-container h2 {
-            color: #38bdf8;
-            margin-bottom: 0.6rem;
-            font-size: 1.9rem;
-        }
-        .download-page-container.patched-page h2 {
-            color: #f87171;
-        }
-        .download-page-container p {
-            color: #94a3b8;
-            margin-bottom: 1.2rem;
-            font-size: 0.95rem;
-        }
-        
-        /* GET ZIP PASS Button Box */
-        .password-box {
-            background-color: #1e293b;
-            border: 1px dashed #38bdf8;
-            padding: 1.2rem;
-            border-radius: 12px;
-            margin-bottom: 1.2rem;
-            text-align: center;
-        }
-        .get-pass-btn {
-            display: inline-flex;
-            align-items: center;
+        .form-box {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            gap: 8px;
-            width: 100%;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-            padding: 0.8rem;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 1.05rem;
-            font-weight: 700;
-            transition: transform 0.2s, opacity 0.2s;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            padding: 40px;
+            transition: 0.6s ease-in-out;
         }
-        .get-pass-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.95;
+        .login-box {
+            left: 0;
+            z-index: 10;
+        }
+        .register-box {
+            right: 0;
+            left: auto;
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .container.active .login-box {
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .container.active .register-box {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+        h2 {
+            color: #00ffcc;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+        input:focus {
+            border-color: #00ffcc;
+        }
+        .btn {
+            background: linear-gradient(135deg, #00ffcc, #00b386);
+            color: #090d16;
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .toggle-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        .toggle-link span {
+            color: #00ffcc;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .overlay-panel {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #00b386, #003d2b);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            transition: 0.6s ease-in-out;
+            border-radius: 0 18px 18px 0;
+        }
+        .container.active .overlay-panel {
+            transform: translateX(-100%);
+            border-radius: 18px 0 0 18px;
+            background: linear-gradient(135deg, #0055ff, #001f66);
+        }
+        .overlay-panel h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .overlay-panel p {
+            font-size: 13px;
+            color: #e2e8f0;
+            line-height: 1.5;
         }
 
-        .timer-box {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #fbbf24;
-            margin: 1rem 0;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
-        }
-        .get-link-btn {
-            display: inline-block;
+        /* ================= DASHBOARD ================= */
+        #dashboard {
+            display: none;
+            flex-direction: column;
             width: 100%;
-            background-color: #1f2937;
-            color: #6b7280;
+            height: 100%;
+            position: relative;
+        }
+        .app-header {
             text-align: center;
-            padding: 0.95rem;
-            border-radius: 12px;
-            text-decoration: none;
+            padding: 15px;
+            font-size: 18px;
             font-weight: bold;
-            font-size: 1.15rem;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            border: 1px solid #374155;
+            letter-spacing: 1.5px;
+            color: #00ffcc;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(19, 27, 46, 0.8);
         }
-        .get-link-btn.active {
-            background: linear-gradient(135deg, #10b981, #047857);
-            color: white;
-            pointer-events: auto;
-            border-color: #34d399;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
-            transform: translateY(-2px);
+        .cards-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 75px;
         }
-        .get-link-btn.patched-blocked {
-            background: linear-gradient(135deg, #7f1d1d, #450a0a);
-            color: #fca5a5;
-            border-color: #991b1b;
-            box-shadow: none;
-            font-size: 1rem;
+        .battle-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .battle-card:hover {
+            border-color: #00ffcc;
+        }
+        .card-img {
+            width: 100%;
+            height: 125px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .card-matches {
+            font-size: 13px;
+            color: #00ffcc;
+            font-weight: 600;
+        }
+
+        /* ================= MATCH LIST VIEW ================= */
+        #match-list-view {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
+            padding-bottom: 70px;
+        }
+        .view-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
         }
         .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 1.5rem;
-            color: #38bdf8;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: color 0.2s;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #94a3b8;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
         }
-        .back-btn:hover {
-            color: #7dd3fc;
-            text-decoration: underline;
+        .match-card {
+            background: #ffffff;
+            color: #111;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .match-top {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .match-top img {
+            width: 70px;
+            height: 40px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+        .match-info h4 {
+            font-size: 13px;
+            color: #111;
+            font-weight: bold;
+        }
+        .match-info span {
+            font-size: 10px;
+            color: #d9534f;
+            font-weight: 600;
+        }
+        .match-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #333;
+            font-weight: bold;
+        }
+        .match-stats small {
+            display: block;
+            font-size: 9px;
+            color: #666;
+            font-weight: normal;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .progress-fill {
+            width: 100%;
+            height: 100%;
+            background: #28a745;
+        }
+        .match-action-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .match-action-btn.started {
+            background: #ffc107;
+            color: #000;
+        }
+        .no-element {
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 50px;
+            font-size: 14px;
         }
 
-        .loading {
-            text-align: center;
-            grid-column: 1 / -1;
+        /* ================= PROFILE MODAL ================= */
+        .modal-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 8, 15, 0.85);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-card {
+            background: #182238;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 16px;
+            width: 85%;
+            max-width: 330px;
+            padding: 20px;
+        }
+        .modal-title {
+            font-size: 16px;
+            color: #00ffcc;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 6px;
+        }
+        .modal-body {
+            font-size: 12px;
+            color: #e2e8f0;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .modal-close-btn {
+            background: linear-gradient(135deg, #00ffcc, #00b386);
+            color: #090d16;
+            border: none;
+            padding: 8px;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* ================= BOTTOM NAVIGATION ================= */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 60px;
+            background: #0f172a;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 40;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
             color: #94a3b8;
-            font-size: 1.1rem;
-            padding: 2rem;
+            font-size: 10px;
         }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            border-top: 1px solid #111827;
-            margin-top: 3rem;
-            font-size: 0.9rem;
-        }
+        .nav-item.active { color: #00ffcc; }
+        .nav-item span.icon { font-size: 16px; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
-    <header id="mainHeader">
-        <h1>RAFI MODS</h1>
-        <p>Your ultimate destination for exclusive Free Fire Max APKs</p>
+    <div class="container" id="mainContainer">
         
-        <div class="social-buttons">
-            <a href="https://t.me/FCMoDMen" class="social-btn telegram" target="_blank">
-                <i class="fab fa-telegram-plane"></i> Join Telegram
-            </a>
-            <a href="https://youtube.com/@apnar_channel" class="social-btn youtube" target="_blank">
-                <i class="fab fa-youtube"></i> Subscribe YouTube
-            </a>
+        <!-- ================= AUTH SECTION ================= -->
+        <div id="auth-section">
+            <!-- Login Form -->
+            <div class="form-box login-box">
+                <h2>Member Login</h2>
+                <div class="input-group"><input type="email" id="loginEmail" placeholder="Email Address"></div>
+                <div class="input-group"><input type="password" id="loginPassword" placeholder="Password"></div>
+                <button class="btn" id="loginBtn">Login</button>
+                <div class="toggle-link">Don't have an account? <span id="toRegister">Sign up</span></div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="form-box register-box">
+                <h2>Create Account</h2>
+                <div class="input-group"><input type="text" id="regUsername" placeholder="Username"></div>
+                <div class="input-group"><input type="email" id="regEmail" placeholder="Email Address"></div>
+                <div class="input-group"><input type="password" id="regPassword" placeholder="Password"></div>
+                <button class="btn" id="regAuthBtn">Register</button>
+                <div class="toggle-link">Already have an account? <span id="toLogin">Login</span></div>
+            </div>
+
+            <!-- Side Welcome Overlay -->
+            <div class="overlay-panel">
+                <h1 id="overlayTitle">WELCOME BACK!</h1>
+                <p id="overlayDesc">Hope you and your family have a great day ahead.</p>
+            </div>
         </div>
 
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search Free Fire Max mods...">
+        <!-- ================= DASHBOARD ================= -->
+        <div id="dashboard">
+            <div class="app-header">FREE FIRE CHAMPIONSHIP</div>
+            <div class="cards-container">
+                <div class="battle-card" onclick="openMatchList('BR Match')">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600" class="card-img" alt="BR">
+                    <div class="card-content">
+                        <div class="card-title">BR MATCH</div>
+                        <div class="card-matches" id="brCount">Active Matches</div>
+                    </div>
+                </div>
+                <div class="battle-card" onclick="openMatchList('Clash Squad')">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=600" class="card-img" alt="CS">
+                    <div class="card-content">
+                        <div class="card-title">CLASH SQUAD</div>
+                        <div class="card-matches" id="csCount">Active Matches</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom Nav -->
+            <div class="bottom-nav">
+                <div class="nav-item" onclick="alert('Shop coming soon!')"><span class="icon">🛒</span><span>Shop</span></div>
+                <div class="nav-item active" onclick="goHome()"><span class="icon">🎮</span><span>Play</span></div>
+                <div class="nav-item" onclick="alert('My Matches')"><span class="icon">📋</span><span>My Match</span></div>
+                <div class="nav-item" onclick="alert('Results')"><span class="icon">📈</span><span>Results</span></div>
+                <div class="nav-item" onclick="showProfileInfo()"><span class="icon">👤</span><span>Profile</span></div>
+            </div>
         </div>
-    </header>
 
-    <div class="container" id="appContent"></div>
+        <!-- MATCH LIST VIEW -->
+        <div id="match-list-view">
+            <div class="view-header">
+                <button class="back-btn" onclick="goHome()">← Back</button>
+                <h3 id="matchCategoryTitle" style="color: #00ffcc; font-size: 15px;">MATCHES</h3>
+                <div style="width: 40px;"></div>
+            </div>
+            <div id="matchCardsContainer"></div>
+            <!-- Bottom Nav -->
+            <div class="bottom-nav">
+                <div class="nav-item" onclick="alert('Shop coming soon!')"><span class="icon">🛒</span><span>Shop</span></div>
+                <div class="nav-item active" onclick="goHome()"><span class="icon">🎮</span><span>Play</span></div>
+                <div class="nav-item" onclick="alert('My Matches')"><span class="icon">📋</span><span>My Match</span></div>
+                <div class="nav-item" onclick="alert('Results')"><span class="icon">📈</span><span>Results</span></div>
+                <div class="nav-item" onclick="showProfileInfo()"><span class="icon">👤</span><span>Profile</span></div>
+            </div>
+        </div>
 
-    <footer>
-        <p>&copy; 2026 RAFI MODS. All rights reserved.</p>
-    </footer>
+        <!-- PROFILE MODAL -->
+        <div class="modal-overlay" id="profileModal">
+            <div class="modal-card">
+                <div class="modal-title">👤 User Profile</div>
+                <div class="modal-body" id="modalBodyContent">Loading...</div>
+                <button class="modal-close-btn" onclick="closeProfileModal()">OK</button>
+            </div>
+        </div>
 
-    <script>
-        const allGames = [
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBhWJnNmnVwHMCRweBUMGInwUZTd0zFlzk",
+            authDomain: "championship-60618.firebaseapp.com",
+            projectId: "championship-60618",
+            storageBucket: "championship-60618.firebasestorage.app",
+            messagingSenderId: "833536881278",
+            appId: "1:833536881278:web:dce508d00bcf5718309e2f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const mainContainer = document.getElementById('mainContainer');
+        const overlayTitle = document.getElementById('overlayTitle');
+        const overlayDesc = document.getElementById('overlayDesc');
+
+        // Toggle Login / Register Panels
+        document.getElementById('toRegister').addEventListener('click', () => {
+            mainContainer.classList.add('active');
+            overlayTitle.innerText = "HELLO FRIEND!";
+            overlayDesc.innerText = "Enter your personal details and start your epic tournament journey with us.";
+        });
+
+        document.getElementById('toLogin').addEventListener('click', () => {
+            mainContainer.classList.remove('active');
+            overlayTitle.innerText = "WELCOME BACK!";
+            overlayDesc.innerText = "Hope you and your family have a great day ahead.";
+        });
+
+        // Register Action with full error catch
+        document.getElementById('regAuthBtn').addEventListener('click', async () => {
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            
+            if(!username || !email || !password) { 
+                alert("Please fill in all fields!"); 
+                return; 
+            }
+            try {
+                const cred = await createUserWithEmailAndPassword(auth, email, password);
+                await updateProfile(cred.user, { displayName: username });
+                localStorage.setItem("username_" + email, username);
+                alert("Account created successfully! Please login.");
+                document.getElementById('toLogin').click();
+            } catch(e) { 
+                alert("Registration Error: " + e.message); 
+            }
+        });
+
+        // Login Action with full error catch
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value.trim();
+            const pass = document.getElementById('loginPassword').value;
+            
+            if(!email || !pass) { 
+                alert("Please enter email and password!"); 
+                return; 
+            }
+            
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+                // Success will automatically trigger onAuthStateChanged
+            } catch(e) { 
+                alert("Login Failed: " + e.message); 
+            }
+        });
+
+        // Tournament Matches Data
+        let matchesData = [
             {
                 id: 1,
-                name: "Free Fire Max - OB55 Proxy Menu",
-                category: "Proxy Mod",
-                size: "480 MB",
-                version: "OB55",
-                desc: "Advanced proxy mode menu built for OB55 update with anti-ban protection and safe features.",
-                link: "https://www.mediafire.com/file/m4lyetth83b9b5q/100%+BODY+HEADSHOT+64Bit.7z/file",
-                passLink: "https://arolinks.com/u3JfND", // Ekhane apnar onno website/telegram link dite parben
-                patched: true
+                category: "BR Match",
+                title: "Solo Time | Mobile | Regular",
+                startTime: new Date(new Date().getTime() + 10 * 60000), 
+                winPrize: "405 TK",
+                entryFee: "10 TK",
+                perKill: "5 TK",
+                map: "Bermuda",
+                version: "MOBILE"
             },
             {
                 id: 2,
-                name: "Free Fire Max - OB55 Body Headshot",
-                category: "Headshot Mod",
-                size: "460 MB",
-                version: "OB55",
-                desc: "Special OB55 build optimized for high accuracy body headshot locking and smooth aim.",
-                link: "https://www.mediafire.com/file/m4lyetth83b9b5q/100%2525_BODY_HEADSHOT_64Bit.7z/file",
-                passLink: "https://arolinks.com/u3JfND",
-                patched: false
-            },
-            {
-                id: 3,
-                name: "Free Fire Max - OB55 Drip client",
-                category: "all feature",
-                size: "490 MB",
-                version: "OB55",
-                desc: "OB55 edition featuring ultra-fast drag headshot sensitivity and custom crosshair.",
-                link: "https://www.mediafire.com/file/example3/file",
-                passLink: "https://t.me/FCMoDMen",
-                patched: true
-            },
-            {
-                id: 4,
-                name: "Free Fire Max - OB54 Drip Client",
-                category: "Drip Client",
-                size: "450 MB",
-                version: "OB54",
-                desc: "Exclusive OB54 Drip Client packed with custom themes, emotes unlocker, and glowing effects.",
-                link: "https://www.mediafire.com/file/example4/file",
-                passLink: "https://t.me/FCMoDMen",
-                patched: true
-            },
-            {
-                id: 5,
-                name: "Free Fire Max - OB54 Proxy Menu Pro",
-                category: "Proxy Mod",
-                size: "475 MB",
-                version: "OB54",
-                desc: "Standard OB54 proxy mode menu with bypass tools and fast network response.",
-                link: "https://www.mediafire.com/file/example5/file",
-                passLink: "https://t.me/FCMoDMen",
-                patched: true
-            },
-            {
-                id: 6,
-                name: "Free Fire Max - OB54 Drag Headshot",
-                category: "Drag Mod",
-                size: "440 MB",
-                version: "OB54",
-                desc: "Classic OB54 drag headshot config loaded directly into client for seamless gameplay.",
-                link: "https://www.mediafire.com/file/example6/file",
-                passLink: "https://t.me/FCMoDMen",
-                patched: true
+                category: "Clash Squad",
+                title: "Squad Clash | Custom | Pro",
+                startTime: new Date(new Date().getTime() + 5 * 60000), 
+                winPrize: "800 TK",
+                entryFee: "20 TK",
+                perKill: "10 TK",
+                map: "Kalahari",
+                version: "MOBILE"
             }
         ];
 
-        const appContent = document.getElementById('appContent');
-        const mainHeader = document.getElementById('mainHeader');
+        let joinedMatches = JSON.parse(localStorage.getItem("joined_matches")) || {};
 
-        function renderHome(gamesToDisplay) {
-            if (mainHeader) mainHeader.style.display = 'block';
-            if (!gamesToDisplay || gamesToDisplay.length === 0) {
-                appContent.innerHTML = `<div class="loading">No mods found!</div>`;
-                return;
-            }
-
-            let html = '';
-            gamesToDisplay.forEach(game => {
-                const cardClass = game.patched ? 'game-card patched' : 'game-card';
-                const badgeClass = game.patched ? 'badge patched-badge' : 'badge';
-                const badgeText = game.patched ? '🔴 Patched (Outdated)' : game.category;
-                const btnClass = game.patched ? 'download-btn patched-btn' : 'download-btn';
-                const btnText = game.patched ? '<i class="fas fa-ban"></i> Patched / Unavailable' : '<i class="fas fa-download"></i> Download APK';
-
-                html += `
-                    <div class="${cardClass}">
-                        <div class="game-info">
-                            <span class="${badgeClass}">${badgeText}</span>
-                            <h3>${game.name}</h3>
-                            <div class="meta"><i class="fas fa-hdd"></i> Size: ${game.size} &nbsp;|&nbsp; <i class="fas fa-code-branch"></i> Version: ${game.version}</div>
-                            <p>${game.desc}</p>
-                            <button class="${btnClass}" onclick="goToDownloadPage(${game.id})">${btnText}</button>
-                        </div>
-                    </div>
-                `;
-            });
-            appContent.innerHTML = html;
+        window.openMatchList = function(category) {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('match-list-view').style.display = 'flex';
+            document.getElementById('matchCategoryTitle').innerText = category.toUpperCase() + "S";
+            renderMatches(category);
         }
 
-        function goToDownloadPage(gameId) {
-            const game = allGames.find(g => g.id === gameId);
-            if (!game) return;
+        window.goHome = function() {
+            document.getElementById('match-list-view').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'flex';
+        }
 
-            if (mainHeader) mainHeader.style.display = 'none';
+        function renderMatches(category) {
+            const container = document.getElementById('matchCardsContainer');
+            container.innerHTML = '';
             
-            if (game.patched) {
-                appContent.innerHTML = `
-                    <div class="download-page-container patched-page">
-                        <h2>${game.name}</h2>
-                        <div class="meta" style="margin-bottom: 1rem;"><span class="badge patched-badge">🔴 Patched</span> &bull; Version: ${game.version} &bull; Size: ${game.size}</div>
-                        <p>${game.desc}</p>
-                        
-                        <hr style="border: 0; border-top: 1px solid #3b1116; margin: 1.5rem 0;">
-                        
-                        <div style="font-size: 3.5rem; color: #ef4444; margin: 1rem 0;">
-                            <i class="fas fa-triangle-exclamation"></i>
+            const now = new Date().getTime();
+            let activeCount = 0;
+
+            matchesData.forEach(match => {
+                if(match.category !== category) return;
+
+                const matchTime = new Date(match.startTime).getTime();
+                const diffTime = matchTime - now;
+                const hideTimeLimit = 10 * 60 * 1000; 
+
+                if (diffTime < -hideTimeLimit) return;
+
+                activeCount++;
+                const isJoined = joinedMatches[match.id];
+
+                let actionButtonHTML = '';
+                if (diffTime <= 0) {
+                    actionButtonHTML = `<button class="match-action-btn started">Match Started</button>`;
+                } else if (isJoined) {
+                    actionButtonHTML = `<button class="match-action-btn" style="background:#17a2b8;" id="timer_${match.id}">Loading Timer...</button>`;
+                } else {
+                    actionButtonHTML = `<button class="match-action-btn" onclick="joinMatch(${match.id}, '${category}')">JOIN MATCH (${match.entryFee})</button>`;
+                }
+
+                const cardHTML = `
+                    <div class="match-card">
+                        <div class="match-top">
+                            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200" alt="game">
+                            <div class="match-info">
+                                <h4>${match.title}</h4>
+                                <span>${new Date(match.startTime).toLocaleString()}</span>
+                            </div>
                         </div>
-                        <p style="color: #f87171; font-weight: bold; font-size: 1.1rem; margin-bottom: 1.5rem;">
-                            This game is patched. Download unavailable!
-                        </p>
-                        
-                        <div class="get-link-btn patched-blocked">
-                            <i class="fas fa-ban"></i> Link Blocked by Admin
+                        <div class="match-stats">
+                            <div>${match.winPrize}<small>WIN PRIZE</small></div>
+                            <div>${match.entryFee}<small>ENTRY FEE</small></div>
+                            <div>${match.perKill}<small>PER KILL</small></div>
                         </div>
-                        
-                        <br>
-                        <a href="#" class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                        <div style="font-size:10px; color:#555; margin-bottom: 5px; display:flex; justify-content:space-between;">
+                            <span>Map: <b>${match.map}</b></span>
+                            <span>Version: <b>${match.version}</b></span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        ${actionButtonHTML}
                     </div>
                 `;
-            } else {
-                appContent.innerHTML = `
-                    <div class="download-page-container">
-                        <h2>${game.name}</h2>
-                        <div class="meta" style="margin-bottom: 1rem;"><span class="badge">${game.category}</span> &bull; Version: ${game.version} &bull; Size: ${game.size}</div>
-                        <p>${game.desc}</p>
-                        
-                        <!-- GET ZIP PASS Button -->
-                        <div class="password-box">
-                            <a href="${game.passLink}" target="_blank" class="get-pass-btn">
-                                <i class="fas fa-key"></i> GET ZIP PASS
-                            </a>
-                        </div>
-                        
-                        <hr style="border: 0; border-top: 1px solid #1f2937; margin: 1.2rem 0;">
-                        
-                        <p style="margin-bottom: 0.2rem; color: #94a3b8; font-weight: 500;">Your download link is ready in:</p>
-                        <div class="timer-box" id="timer">10</div>
-                        
-                        <a href="${game.link}" id="getLinkBtn" class="get-link-btn" target="_blank"><i class="fas fa-lock"></i> Please Wait...</a>
-                        
-                        <br>
-                        <a href="#" class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</a>
-                    </div>
-                `;
-                startCountdown();
+                container.innerHTML += cardHTML;
+            });
+
+            if (activeCount === 0) {
+                container.innerHTML = `<div class="no-element">No element found</div>`;
             }
         }
 
-        function startCountdown() {
-            let timeLeft = 10;
-            const timerElement = document.getElementById('timer');
-            const getLinkBtn = document.getElementById('getLinkBtn');
+        window.joinMatch = function(matchId, category) {
+            joinedMatches[matchId] = true;
+            localStorage.setItem("joined_matches", JSON.stringify(joinedMatches));
+            alert("Successfully joined the match! Timer started.");
+            renderMatches(category);
+        }
 
-            const countdown = setInterval(() => {
-                timeLeft--;
-                if (timerElement) timerElement.textContent = timeLeft;
-
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    if (timerElement) timerElement.textContent = "Ready!";
-                    if (getLinkBtn) {
-                        getLinkBtn.innerHTML = `<i class="fas fa-rocket"></i> Download Now 🚀`;
-                        getLinkBtn.classList.add('active');
+        // Live Timer Updater
+        setInterval(() => {
+            const now = new Date().getTime();
+            matchesData.forEach(match => {
+                if (joinedMatches[match.id]) {
+                    const timerElem = document.getElementById(`timer_${match.id}`);
+                    if (timerElem) {
+                        const dist = new Date(match.startTime).getTime() - now;
+                        if (dist > 0) {
+                            const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                            const s = Math.floor((dist % (1000 * 60)) / 1000);
+                            timerElem.innerText = `STARTS IN - 0${Math.floor(dist/(1000*60*60))}:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+                        } else {
+                            timerElem.innerText = "Match Started";
+                            timerElem.className = "match-action-btn started";
+                        }
                     }
                 }
-            }, 1000);
-        }
-
-        function goHome(e) {
-            e.preventDefault();
-            renderHome(allGames);
-        }
-
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                const searchText = e.target.value.toLowerCase();
-                const filtered = allGames.filter(g => 
-                    g.name.toLowerCase().includes(searchText) || 
-                    g.category.toLowerCase().includes(searchText)
-                );
-                renderHome(filtered);
             });
+        }, 1000);
+
+        window.showProfileInfo = function() {
+            if(!auth.currentUser) return;
+            const email = auth.currentUser.email;
+            const username = localStorage.getItem("username_" + email) || auth.currentUser.displayName || "Gamer";
+            document.getElementById('modalBodyContent').innerHTML = `▪ <span>Username:</span> ${username}<br>▪ <span>Email:</span> ${email}`;
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+        window.closeProfileModal = function() {
+            document.getElementById('profileModal').style.display = 'none';
         }
 
-        renderHome(allGames);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('auth-section').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'flex';
+            } else {
+                document.getElementById('auth-section').style.display = 'flex';
+                document.getElementById('dashboard').style.display = 'none';
+                mainContainer.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
+
 
