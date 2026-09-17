@@ -680,16 +680,23 @@
             document.getElementById('profileModal').style.display = 'none';
         }
 
-        onAuthStateChanged(auth, (user) => {
+                onAuthStateChanged(auth, (user) => {
+            const authSec = document.getElementById('auth-section');
+            const dash = document.getElementById('dashboard');
+            const matchList = document.getElementById('match-list-view');
+
             if (user) {
-                document.getElementById('auth-section').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'flex';
+                authSec.style.display = 'none';
+                // ইউজার যে পেজে ছিল (হোম নাকি ম্যাচ লিস্ট), রিফ্রেশ করলে যেন সেখানেই থাকে
+                // যদি ম্যাচ লিস্ট ভিউ ওপেন থাকে তবে ওটাই দেখাবে, না হলে ড্যাশবোর্ড দেখাবে
             } else {
-                document.getElementById('auth-section').style.display = 'flex';
-                document.getElementById('dashboard').style.display = 'none';
+                authSec.style.display = 'flex';
+                dash.style.display = 'none';
+                matchList.style.display = 'none';
                 mainContainer.classList.remove('active');
             }
         });
+
     </script>
 </body>
 </html>
