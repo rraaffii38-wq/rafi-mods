@@ -3,511 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAFI-MODS - Game Vault</title>
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #0b0f19;
-            color: #e2e8f0;
-            line-height: 1.6;
-        }
-        header {
-            background: linear-gradient(135deg, #1e1b4b, #0f172a);
-            padding: 2.5rem 1rem;
-            text-align: center;
-            border-bottom: 2px solid #1e293b;
-        }
-        header h1 {
-            color: #38bdf8;
-            font-size: 2.6rem;
-            margin-bottom: 0.2rem;
-            letter-spacing: 1px;
-        }
-        header p {
-            color: #94a3b8;
-            font-size: 1rem;
-            margin-bottom: 1.2rem;
-        }
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 1.5rem;
-        }
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: white;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-        .social-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-        .social-btn.telegram {
-            background-color: #229ed9;
-        }
-        .social-btn.youtube {
-            background-color: #ff0000;
-        }
-        .search-box input {
-            width: 100%;
-            max-width: 400px;
-            padding: 0.75rem 1rem;
-            border-radius: 25px;
-            border: 1px solid #334155;
-            background-color: #1e293b;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .search-box input:focus {
-            border-color: #38bdf8;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        .game-card {
-            background-color: #1e293b;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-            border: 1px solid #334155;
-            transition: transform 0.3s ease, border-color 0.3s;
-        }
-        .game-card:hover {
-            transform: translateY(-6px);
-            border-color: #38bdf8;
-        }
-        .game-info {
-            padding: 1.5rem;
-        }
-        .badge {
-            display: inline-block;
-            background-color: #0369a1;
-            color: #e0f2fe;
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-        .game-info h3 {
-            color: #f8fafc;
-            font-size: 1.35rem;
-            margin-bottom: 0.4rem;
-        }
-        .game-info p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 1.2rem;
-        }
-        .meta {
-            font-size: 0.8rem;
-            color: #38bdf8;
-            margin-bottom: 0.8rem;
-            font-weight: 500;
-        }
-        .download-btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            text-align: center;
-            padding: 0.75rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: opacity 0.2s;
-        }
-        .download-btn:hover {
-            opacity: 0.9;
-        }
-        .loading {
-            text-align: center;
-            grid-column: 1 / -1;
-            color: #94a3b8;
-            font-size: 1.1rem;
-            padding: 2rem;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            border-top: 1px solid #1e293b;
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAFI MODS - Game Vault</title>
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #0b0f19;
-            color: #e2e8f0;
-            line-height: 1.6;
-        }
-        header {
-            background: linear-gradient(135deg, #1e1b4b, #0f172a);
-            padding: 2.5rem 1rem;
-            text-align: center;
-            border-bottom: 2px solid #1e293b;
-        }
-        header h1 {
-            color: #38bdf8;
-            font-size: 2.6rem;
-            margin-bottom: 0.2rem;
-            letter-spacing: 1px;
-        }
-        header p {
-            color: #94a3b8;
-            font-size: 1rem;
-            margin-bottom: 1.2rem;
-        }
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 1.5rem;
-        }
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: white;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-        .social-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-        .social-btn.telegram {
-            background-color: #229ed9;
-        }
-        .social-btn.youtube {
-            background-color: #ff0000;
-        }
-        .search-box input {
-            width: 100%;
-            max-width: 400px;
-            padding: 0.75rem 1rem;
-            border-radius: 25px;
-            border: 1px solid #334155;
-            background-color: #1e293b;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .search-box input:focus {
-            border-color: #38bdf8;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        .game-card {
-            background-color: #1e293b;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-            border: 1px solid #334155;
-            transition: transform 0.3s ease, border-color 0.3s;
-        }
-        .game-card:hover {
-            transform: translateY(-6px);
-            border-color: #38bdf8;
-        }
-        .game-info {
-            padding: 1.5rem;
-        }
-        .badge {
-            display: inline-block;
-            background-color: #0369a1;
-            color: #e0f2fe;
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-        .game-info h3 {
-            color: #f8fafc;
-            font-size: 1.35rem;
-            margin-bottom: 0.4rem;
-        }
-        .game-info p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 1.2rem;
-        }
-        .meta {
-            font-size: 0.8rem;
-            color: #38bdf8;
-            margin-bottom: 0.8rem;
-            font-weight: 500;
-        }
-        .download-btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            text-align: center;
-            padding: 0.75rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: opacity 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-        .download-btn:hover {
-            opacity: 0.9;
-        }
-        
-        /* Download page layout styling */
-        .download-page-container {
-            max-width: 600px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background-color: #1e293b;
-            border-radius: 14px;
-            border: 1px solid #334155;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-        }
-        .download-page-container h2 {
-            color: #38bdf8;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-        .download-page-container p {
-            color: #94a3b8;
-            margin-bottom: 1.5rem;
-        }
-        .timer-box {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #f59e0b;
-            margin: 1.5rem 0;
-        }
-        .get-link-btn {
-            display: inline-block;
-            width: 100%;
-            background-color: #475569;
-            color: #94a3b8;
-            text-align: center;
-            padding: 0.9rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            pointer-events: none;
-            transition: background 0.3s, color 0.3s;
-        }
-        .get-link-btn.active {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            pointer-events: auto;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-        }
-        .back-btn {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: #38bdf8;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        .back-btn:hover {
-            text-decoration: underline;
-        }
-
-        .loading {
-            text-align: center;
-            grid-column: 1 / -1;
-            color: #94a3b8;
-            font-size: 1.1rem;
-            padding: 2rem;
-        }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            border-top: 1px solid #1e293b;
-            margin-top: 3rem;
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
-<body>
-
-    <header id="mainHeader">
-        <h1>RAFI MODS</h1>
-        <p>Your ultimate destination for exclusive APKs & mods</p>
-        
-        <!-- Social Buttons -->
-        <div class="social-buttons">
-            <a href="https://t.me/apnar_username" class="social-btn telegram" target="_blank">
-                <i class="fab fa-telegram-plane"></i> Join Telegram
-            </a>
-            <a href="https://youtube.com/@apnar_channel" class="social-btn youtube" target="_blank">
-                <i class="fab fa-youtube"></i> Subscribe YouTube
-            </a>
-        </div>
-
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search games...">
-        </div>
-    </header>
-
-    <div class="container" id="appContent">
-        <!-- Dynamic content (Home list or Download page) will load here -->
-    </div>
-
-    <footer>
-        <p>&copy; 2026 RAFI MODS. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Game list-er data. ID diye alada page control kora hobe.
-        const allGames = [
-            {
-                id: 1,
-                name: "Free Fire Max (Mod Menu)",
-                category: "Action",
-                size: "750 MB",
-                version: "v2.19",
-                desc: "Unlocked skins, aimbot fixed, smooth graphic experience for high performance.",
-                link: "https://example.com/download-link-1"
-            },
-            {
-                id: 2,
-                name: "Last Island Survival",
-                category: "Survival",
-                size: "920 MB",
-                version: "v1.0.5",
-                desc: "Open-world offline survival game with realistic graphics and crafting features.",
-                link: "https://example.com/download-link-2"
-            }
-        ];
-
-        const appContent = document.getElementById('appContent');
-        const mainHeader = document.getElementById('mainHeader');
-
-        function renderHome(gamesToDisplay) {
-            mainHeader.style.display = 'block';
-            if (gamesToDisplay.length === 0) {
-                appContent.innerHTML = `<div class="loading">No games found!</div>`;
-                return;
-            }
-
-            let html = '';
-            gamesToDisplay.forEach(game => {
-                html += `
-                    <div class="game-card">
-                        <div class="info game-info">
-                            <span class="badge">${game.category}</span>
-                            <h3>${game.name}</h3>
-                            <div class="meta">Size: ${game.size} | Version: ${game.version}</div>
-                            <p>${game.desc}</p>
-                            <button class="download-btn" onclick="goToDownloadPage(${game.id})">Download APK</button>
-                        </div>
-                    </div>
-                `;
-            });
-            appContent.innerHTML = html;
-        }
-
-        function goToDownloadPage(gameId) {
-            const game = allGames.find(g => g.id === gameId);
-            if (!game) return;
-
-            mainHeader.style.display = 'none';
-            
-            appContent.innerHTML = `
-                <div class="download-page-container">
-                    <h2>${game.name}</h2>
-                    <div class="meta" style="margin-bottom: 1rem;">Version: ${game.version} | Size: ${game.size}</div>
-                    <p>${game.desc}</p>
-                    
-                    <hr style="border: 0; border-top: 1px solid #334155; margin: 1.5rem 0;">
-                    
-                    <p style="margin-bottom: 0.5rem; font-weight: bold;">Your download link is ready in:</p>
-                    <div class="timer-box" id="timer">10</div>
-                    
-                    <a href="${game.link}" id="getLinkBtn" class="get-link-btn" target="_blank">Get Link</a>
-                    
-                    <br>
-                    <a href="#" class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</a>
-                </div>
-            `;
-
-            startCountdown(game.link);
-        }
-
-        function startCountdown(downloadUrl) {
-            let timeLeft = 10;
-            const timerElement = document.getElementById('timer');
-            const getLinkBtn = document.getElementById('getLinkBtn');
-
-            const countdown = setInterval(() => {
-                timeLeft--;
-                timerElement.textContent = timeLeft;
-
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    timerElement.textContent = "Ready!";
-                    getLinkBtn.textContent = "Download Now 🚀";
-                    getLinkBtn.classList.add('active');
-                }
-            }, 1000);
-        }
-
-        function goHome(e) {
-            e.preventDefault();
-            renderHome(allGames);
-        }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAFI MODS - Game Vault</title>
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -607,6 +102,16 @@
             transform: translateY(-6px);
             border-color: #38bdf8;
         }
+        
+        /* Patched Card Styles */
+        .game-card.patched {
+            border-color: #ef4444;
+            background-color: #1a0f13;
+        }
+        .game-card.patched:hover {
+            border-color: #f87171;
+        }
+        
         .game-info {
             padding: 1.6rem;
         }
@@ -621,9 +126,15 @@
             margin-bottom: 0.8rem;
             font-weight: 600;
         }
+        .badge.patched-badge {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
         .game-info h3 {
             color: #f8fafc;
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             margin-bottom: 0.4rem;
         }
         .game-info p {
@@ -656,8 +167,17 @@
             opacity: 0.95;
             transform: scale(1.02);
         }
+        .download-btn.patched-btn {
+            background: linear-gradient(135deg, #991b1b, #7f1d1d);
+            color: #fca5a5;
+            cursor: not-allowed;
+            box-shadow: 0 4px 12px rgba(153, 27, 27, 0.4);
+        }
+        .download-btn.patched-btn:hover {
+            transform: none;
+            opacity: 1;
+        }
         
-        /* Upgraded Download page layout styling */
         .download-page-container {
             max-width: 550px;
             margin: 3.5rem auto;
@@ -668,10 +188,17 @@
             text-align: center;
             box-shadow: 0 12px 30px rgba(0,0,0,0.6);
         }
+        .download-page-container.patched-page {
+            border-color: #ef4444;
+            background-color: #1a0f13;
+        }
         .download-page-container h2 {
             color: #38bdf8;
             margin-bottom: 0.6rem;
             font-size: 1.9rem;
+        }
+        .download-page-container.patched-page h2 {
+            color: #f87171;
         }
         .download-page-container p {
             color: #94a3b8;
@@ -707,6 +234,13 @@
             border-color: #34d399;
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
             transform: translateY(-2px);
+        }
+        .get-link-btn.patched-blocked {
+            background: linear-gradient(135deg, #7f1d1d, #450a0a);
+            color: #fca5a5;
+            border-color: #991b1b;
+            box-shadow: none;
+            font-size: 1rem;
         }
         .back-btn {
             display: inline-flex;
@@ -745,11 +279,10 @@
 
     <header id="mainHeader">
         <h1>RAFI MODS</h1>
-        <p>Your ultimate destination for exclusive APKs & mods</p>
+        <p>Your ultimate destination for exclusive Free Fire Max APKs</p>
         
-        <!-- Social Buttons -->
         <div class="social-buttons">
-            <a href="https://t.me/apnar_username" class="social-btn telegram" target="_blank">
+            <a href="https://t.me/FCMoDMen" class="social-btn telegram" target="_blank">
                 <i class="fab fa-telegram-plane"></i> Join Telegram
             </a>
             <a href="https://youtube.com/@apnar_channel" class="social-btn youtube" target="_blank">
@@ -758,37 +291,78 @@
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search games...">
+            <input type="text" id="searchInput" placeholder="Search Free Fire Max mods...">
         </div>
     </header>
 
-    <div class="container" id="appContent">
-        <!-- Dynamic content will load here -->
-    </div>
+    <div class="container" id="appContent"></div>
 
     <footer>
         <p>&copy; 2026 RAFI MODS. All rights reserved.</p>
     </footer>
 
     <script>
+        //ekhane je kono mod-e "patched: true" kore dilei ota lal hoye jabe ebong download block hoye jabe.
         const allGames = [
             {
                 id: 1,
-                name: "Free Fire Max (Mod Menu)",
-                category: "Action",
-                size: "750 MB",
-                version: "v2.19",
-                desc: "Unlocked skins, aimbot fixed, smooth graphic experience for high performance.",
-                link: "https://example.com/download-link-1"
+                name: "Free Fire Max - OB55 Proxy Menu",
+                category: "Proxy Mod",
+                size: "480 MB",
+                version: "OB55",
+                desc: "Advanced proxy mode menu built for OB55 update with anti-ban protection and safe features.",
+                link: "https://example.com/download-1",
+                patched: false // Sothik ache (Normal)
             },
             {
                 id: 2,
-                name: "Last Island Survival",
-                category: "Survival",
-                size: "920 MB",
-                version: "v1.0.5",
-                desc: "Open-world offline survival game with realistic graphics and crafting features.",
-                link: "https://example.com/download-link-2"
+                name: "Free Fire Max - OB55 Body Headshot",
+                category: "Headshot Mod",
+                size: "460 MB",
+                version: "OB55",
+                desc: "Special OB55 build optimized for high accuracy body headshot locking and smooth aim.",
+                link: "https://example.com/download-2",
+                patched: true  // Ekhane 'true' koray eta Patched (Lal) hoye geche!
+            },
+            {
+                id: 3,
+                name: "Free Fire Max - OB55 Drag Aim VIP",
+                category: "Drag Mod",
+                size: "490 MB",
+                version: "OB55",
+                desc: "OB55 edition featuring ultra-fast drag headshot sensitivity and custom crosshair.",
+                link: "https://example.com/download-3",
+                patched: false
+            },
+            {
+                id: 4,
+                name: "Free Fire Max - OB54 Drip Client",
+                category: "Drip Client",
+                size: "450 MB",
+                version: "OB54",
+                desc: "Exclusive OB54 Drip Client packed with custom themes, emotes unlocker, and glowing effects.",
+                link: "https://example.com/download-4",
+                patched: true  // Etao Patched kora
+            },
+            {
+                id: 5,
+                name: "Free Fire Max - OB54 Proxy Menu Pro",
+                category: "Proxy Mod",
+                size: "475 MB",
+                version: "OB54",
+                desc: "Standard OB54 proxy mode menu with bypass tools and fast network response.",
+                link: "https://example.com/download-5",
+                patched: false
+            },
+            {
+                id: 6,
+                name: "Free Fire Max - OB54 Drag Headshot",
+                category: "Drag Mod",
+                size: "440 MB",
+                version: "OB54",
+                desc: "Classic OB54 drag headshot config loaded directly into client for seamless gameplay.",
+                link: "https://example.com/download-6",
+                patched: false
             }
         ];
 
@@ -796,22 +370,28 @@
         const mainHeader = document.getElementById('mainHeader');
 
         function renderHome(gamesToDisplay) {
-            mainHeader.style.display = 'block';
-            if (gamesToDisplay.length === 0) {
-                appContent.innerHTML = `<div class="loading">No games found!</div>`;
+            if (mainHeader) mainHeader.style.display = 'block';
+            if (!gamesToDisplay || gamesToDisplay.length === 0) {
+                appContent.innerHTML = `<div class="loading">No mods found!</div>`;
                 return;
             }
 
             let html = '';
             gamesToDisplay.forEach(game => {
+                const cardClass = game.patched ? 'game-card patched' : 'game-card';
+                const badgeClass = game.patched ? 'badge patched-badge' : 'badge';
+                const badgeText = game.patched ? '🔴 Patched (Outdated)' : game.category;
+                const btnClass = game.patched ? 'download-btn patched-btn' : 'download-btn';
+                const btnText = game.patched ? '<i class="fas fa-ban"></i> Patched / Unavailable' : '<i class="fas fa-download"></i> Download APK';
+
                 html += `
-                    <div class="game-card">
+                    <div class="${cardClass}">
                         <div class="game-info">
-                            <span class="badge">${game.category}</span>
+                            <span class="${badgeClass}">${badgeText}</span>
                             <h3>${game.name}</h3>
                             <div class="meta"><i class="fas fa-hdd"></i> Size: ${game.size} &nbsp;|&nbsp; <i class="fas fa-code-branch"></i> Version: ${game.version}</div>
                             <p>${game.desc}</p>
-                            <button class="download-btn" onclick="goToDownloadPage(${game.id})"><i class="fas fa-download"></i> Download APK</button>
+                            <button class="${btnClass}" onclick="goToDownloadPage(${game.id})">${btnText}</button>
                         </div>
                     </div>
                 `;
@@ -823,43 +403,72 @@
             const game = allGames.find(g => g.id === gameId);
             if (!game) return;
 
-            mainHeader.style.display = 'none';
+            if (mainHeader) mainHeader.style.display = 'none';
             
-            appContent.innerHTML = `
-                <div class="download-page-container">
-                    <h2>${game.name}</h2>
-                    <div class="meta" style="margin-bottom: 1rem;"><span class="badge">${game.category}</span> &bull; Version: ${game.version} &bull; Size: ${game.size}</div>
-                    <p>${game.desc}</p>
-                    
-                    <hr style="border: 0; border-top: 1px solid #1f2937; margin: 1.5rem 0;">
-                    
-                    <p style="margin-bottom: 0.2rem; color: #94a3b8; font-weight: 500;">Your download link is ready in:</p>
-                    <div class="timer-box" id="timer">10</div>
-                    
-                    <a href="${game.link}" id="getLinkBtn" class="get-link-btn" target="_blank"><i class="fas fa-lock"></i> Please Wait...</a>
-                    
-                    <br>
-                    <a href="#" class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</a>
-                </div>
-            `;
-
-            startCountdown(game.link);
+            if (game.patched) {
+                // Jodi game patched hoy tah ete ai view dekhabe
+                appContent.innerHTML = `
+                    <div class="download-page-container patched-page">
+                        <h2>${game.name}</h2>
+                        <div class="meta" style="margin-bottom: 1rem;"><span class="badge patched-badge">🔴 Patched</span> &bull; Version: ${game.version} &bull; Size: ${game.size}</div>
+                        <p>${game.desc}</p>
+                        
+                        <hr style="border: 0; border-top: 1px solid #3b1116; margin: 1.5rem 0;">
+                        
+                        <div style="font-size: 3.5rem; color: #ef4444; margin: 1rem 0;">
+                            <i class="fas fa-triangle-exclamation"></i>
+                        </div>
+                        <p style="color: #f87171; font-weight: bold; font-size: 1.1rem; margin-bottom: 1.5rem;">
+                            This game is patched. Download unavailable!
+                        </p>
+                        
+                        <div class="get-link-btn patched-blocked">
+                            <i class="fas fa-ban"></i> Link Blocked by Admin
+                        </div>
+                        
+                        <br>
+                        <a href="#" class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                    </div>
+                `;
+            } else {
+                // Normal download page with timer
+                appContent.innerHTML = `
+                    <div class="download-page-container">
+                        <h2>${game.name}</h2>
+                        <div class="meta" style="margin-bottom: 1rem;"><span class="badge">${game.category}</span> &bull; Version: ${game.version} &bull; Size: ${game.size}</div>
+                        <p>${game.desc}</p>
+                        
+                        <hr style="border: 0; border-top: 1px solid #1f2937; margin: 1.5rem 0;">
+                        
+                        <p style="margin-bottom: 0.2rem; color: #94a3b8; font-weight: 500;">Your download link is ready in:</p>
+                        <div class="timer-box" id="timer">10</div>
+                        
+                        <a href="${game.link}" id="getLinkBtn" class="get-link-btn" target="_blank"><i class="fas fa-lock"></i> Please Wait...</a>
+                        
+                        <br>
+                        <a href="#" class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                    </div>
+                `;
+                startCountdown();
+            }
         }
 
-        function startCountdown(downloadUrl) {
+        function startCountdown() {
             let timeLeft = 10;
             const timerElement = document.getElementById('timer');
             const getLinkBtn = document.getElementById('getLinkBtn');
 
             const countdown = setInterval(() => {
                 timeLeft--;
-                timerElement.textContent = timeLeft;
+                if (timerElement) timerElement.textContent = timeLeft;
 
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
-                    timerElement.textContent = "Ready!";
-                    getLinkBtn.innerHTML = `<i class="fas fa-rocket"></i> Download Now 🚀`;
-                    getLinkBtn.classList.add('active');
+                    if (timerElement) timerElement.textContent = "Ready!";
+                    if (getLinkBtn) {
+                        getLinkBtn.innerHTML = `<i class="fas fa-rocket"></i> Download Now 🚀`;
+                        getLinkBtn.classList.add('active');
+                    }
                 }
             }, 1000);
         }
@@ -869,22 +478,20 @@
             renderHome(allGames);
         }
 
-        function setupSearch() {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('input', (e) => {
-                    const searchText = e.target.value.toLowerCase();
-                    const filtered = allGames.filter(g => 
-                        g.name.toLowerCase().includes(searchText) || 
-                        g.category.toLowerCase().includes(searchText)
-                    );
-                    renderHome(filtered);
-                });
-            }
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const searchText = e.target.value.toLowerCase();
+                const filtered = allGames.filter(g => 
+                    g.name.toLowerCase().includes(searchText) || 
+                    g.category.toLowerCase().includes(searchText)
+                );
+                renderHome(filtered);
+            });
         }
 
         renderHome(allGames);
-        setupSearch();
     </script>
 </body>
 </html>
+
