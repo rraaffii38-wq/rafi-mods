@@ -146,7 +146,7 @@
         .match-action-btn.full { background: #d9534f; color: white; cursor: not-allowed; }
         .no-element { text-align: center; color: #94a3b8; margin-top: 50px; font-size: 14px; }
 
-        /* ================= MODALS ================= */
+        /* ================= MODALS (ARO BORO & BACK BUTTON ADDED) ================= */
         .modal-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(5, 8, 15, 0.85); backdrop-filter: blur(5px);
@@ -154,20 +154,27 @@
         }
         .modal-card {
             background: #182238; border: 1px solid rgba(0, 255, 204, 0.3);
-            border-radius: 16px; width: 90%; max-width: 350px; padding: 20px; max-height: 90vh; overflow-y: auto;
+            border-radius: 16px; width: 95%; max-width: 480px; padding: 25px; max-height: 95vh; overflow-y: auto;
+        }
+        .modal-header-row {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 15px;
         }
         .modal-title {
-            font-size: 15px; color: #00ffcc; font-weight: bold; margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;
+            font-size: 16px; color: #00ffcc; font-weight: bold;
         }
-        .modal-body { font-size: 12px; color: #e2e8f0; line-height: 1.6; margin-bottom: 15px; }
+        .modal-back-icon {
+            background: transparent; border: 1px solid rgba(255,255,255,0.2);
+            color: #94a3b8; font-size: 12px; padding: 4px 10px; border-radius: 6px; cursor: pointer;
+        }
+        .modal-body { font-size: 13px; color: #e2e8f0; line-height: 1.6; margin-bottom: 15px; }
         .modal-close-btn {
             background: linear-gradient(135deg, #00ffcc, #00b386); color: #090d16;
-            border: none; padding: 8px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;
+            border: none; padding: 10px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;
         }
-        .squad-input-group { margin-bottom: 8px; }
-        .squad-input-group label { display: block; font-size: 11px; color: #00ffcc; margin-bottom: 2px; }
-        .squad-input-group input { padding: 8px 10px; font-size: 12px; }
+        .squad-input-group { margin-bottom: 12px; }
+        .squad-input-group label { display: block; font-size: 12px; color: #00ffcc; margin-bottom: 4px; font-weight: 600; }
+        .squad-input-group input { padding: 10px 12px; font-size: 13px; }
 
         /* ================= BOTTOM NAVIGATION ================= */
         .bottom-nav {
@@ -262,7 +269,10 @@
         <!-- WALLET MODAL -->
         <div class="modal-overlay" id="walletModal">
             <div class="modal-card">
-                <div class="modal-title">💳 My Wallet</div>
+                <div class="modal-header-row">
+                    <div class="modal-title">💳 My Wallet</div>
+                    <button class="modal-back-icon" onclick="closeWalletModal()">✕ Close</button>
+                </div>
                 <div class="modal-body" style="text-align:center;">
                     <p style="font-size:13px; color:#94a3b8;">Available Balance</p>
                     <h2 id="walletModalBalance" style="color:#00ffcc; margin:5px 0 15px 0;">৳ 0</h2>
@@ -272,33 +282,36 @@
                     </div>
                 </div>
                 <button class="modal-close-btn" onclick="addMoneyToWallet()">Deposit Money</button>
-                <button class="modal-close-btn" style="background:#334155; color:#fff; margin-top:8px;" onclick="closeWalletModal()">Close</button>
             </div>
         </div>
 
-        <!-- DYNAMIC JOIN MODAL -->
+        <!-- DYNAMIC JOIN MODAL (ARO BORO & BACK BUTTON) -->
         <div class="modal-overlay" id="squadModal">
             <div class="modal-card">
-                <div class="modal-title" id="modalTitleText">⚔️ Enter Details</div>
+                <div class="modal-header-row">
+                    <div class="modal-title" id="modalTitleText">⚔️ Enter Details</div>
+                    <button class="modal-back-icon" onclick="closeSquadModal()">← Back</button>
+                </div>
                 <div class="modal-body">
-                    <p id="modalFeeInfo" style="color:#00ffcc; margin-bottom:10px; font-weight:bold;"></p>
+                    <p id="modalFeeInfo" style="color:#00ffcc; margin-bottom:12px; font-weight:bold;"></p>
                     <div class="squad-input-group" id="teamNameGroup">
                         <label>Team Name</label>
-                        <input type="text" id="modalTeamName" placeholder="Enter Team Name" style="margin-bottom:8px;">
+                        <input type="text" id="modalTeamName" placeholder="Enter Team Name">
                     </div>
                     <div id="squadInputsContainer"></div>
                 </div>
                 <button class="modal-close-btn" id="submitSquadBtn">Confirm & Join</button>
-                <button class="modal-close-btn" style="background:#334155; color:#fff; margin-top:8px;" onclick="closeSquadModal()">Cancel</button>
             </div>
         </div>
 
         <!-- PROFILE MODAL -->
         <div class="modal-overlay" id="profileModal">
             <div class="modal-card">
-                <div class="modal-title">👤 User Profile</div>
+                <div class="modal-header-row">
+                    <div class="modal-title">👤 User Profile</div>
+                    <button class="modal-back-icon" onclick="closeProfileModal()">✕ Close</button>
+                </div>
                 <div class="modal-body" id="modalBodyContent">Loading...</div>
-                <button class="modal-close-btn" onclick="closeProfileModal()">OK</button>
             </div>
         </div>
 
@@ -377,7 +390,7 @@
                 slotType: "Teams",
                 roomId: "9876543",
                 roomPass: "1234",
-                matchVersion: 3  // <--- Ekhane matchVersion 2 theke 3 kore dewa holo, jate join button automatic reset hoye jay
+                matchVersion: 3
             },
             {
                 id: 2,
@@ -393,7 +406,7 @@
                 slotType: "Players",
                 roomId: "8885552",
                 roomPass: "5678",
-                matchVersion: 3  // <--- Etao 2 theke 3 kore dewa holo
+                matchVersion: 3
             }
         ];
 
@@ -725,6 +738,7 @@
     </script>
 </body>
 </html>
+
 
 
 
