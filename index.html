@@ -300,6 +300,14 @@
         .room-details-box span b {
             color: #d9534f;
         }
+        .slot-info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #555;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
         .progress-bar {
             width: 100%;
             height: 6px;
@@ -309,9 +317,10 @@
             margin-bottom: 8px;
         }
         .progress-fill {
-            width: 100%;
             height: 100%;
             background: #28a745;
+            width: 0%;
+            transition: width 0.3s ease;
         }
         .match-action-btn {
             background: #28a745;
@@ -329,6 +338,11 @@
             background: #ffc107;
             color: #000;
         }
+        .match-action-btn.full {
+            background: #d9534f;
+            color: white;
+            cursor: not-allowed;
+        }
         .no-element {
             text-align: center;
             color: #94a3b8;
@@ -336,7 +350,7 @@
             font-size: 14px;
         }
 
-        /* ================= PROFILE MODAL ================= */
+        /* ================= MODALS (SQUAD & PROFILE) ================= */
         .modal-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -351,12 +365,14 @@
             background: #182238;
             border: 1px solid rgba(0, 255, 204, 0.3);
             border-radius: 16px;
-            width: 85%;
-            max-width: 330px;
+            width: 90%;
+            max-width: 350px;
             padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .modal-title {
-            font-size: 16px;
+            font-size: 15px;
             color: #00ffcc;
             font-weight: bold;
             margin-bottom: 12px;
@@ -379,6 +395,19 @@
             font-weight: bold;
             cursor: pointer;
             font-size: 13px;
+        }
+        .squad-input-group {
+            margin-bottom: 8px;
+        }
+        .squad-input-group label {
+            display: block;
+            font-size: 11px;
+            color: #00ffcc;
+            margin-bottom: 2px;
+        }
+        .squad-input-group input {
+            padding: 8px 10px;
+            font-size: 12px;
         }
 
         /* ================= BOTTOM NAVIGATION ================= */
@@ -483,6 +512,20 @@
             </div>
         </div>
 
+        <!-- SQUAD PLAYERS INPUT MODAL (FOR BR MATCH) -->
+        <div class="modal-overlay" id="squadModal">
+            <div class="modal-card">
+                <div class="modal-title">⚔️ Enter 4 Players Details</div>
+                <div class="modal-body">
+                    <div id="squadInputsContainer">
+                        <!-- Dynamic 4 Players Inputs -->
+                    </div>
+                </div>
+                <button class="modal-close-btn" id="submitSquadBtn">Confirm & Join</button>
+                <button class="modal-close-btn" style="background:#334155; color:#fff; margin-top:8px;" onclick="closeSquadModal()">Cancel</button>
+            </div>
+        </div>
+
         <!-- PROFILE MODAL -->
         <div class="modal-overlay" id="profileModal">
             <div class="modal-card">
@@ -566,36 +609,56 @@
         });
 
         // ================= TOURNAMENT MATCHES DATA =================
+        // Match updates version track korar jonno matchVersion rakha holo. 
+        // Jokhon e kono match er time ba info change hobe, matchVersion change hole user er join reset hoye jabe.
         let matchesData = [
             {
                 id: 1,
                 category: "BR Match",
-                title: "Solo Time | Mobile | Regular",
-                startTime: "2026-09-18T12:20:00", 
-                winPrize: "00 TK",
+                title: "Squad Championship | Mobile | Regular",
+                startTime: "2026-09-19T10:00:00", 
+                winPrize: "405 TK",
                 entryFee: "00 TK",
-                perKill: "00 TK",
+                perKill: "5 TK",
                 map: "Bermuda",
                 version: "MOBILE",
+                maxSlots: 12,
+                slotType: "Teams",
                 roomId: "9876543",
-                roomPass: "1234"
+                roomPass: "1234",
+                matchVersion: 1 // Match update check korar jonno
             },
             {
                 id: 2,
                 category: "Clash Squad",
-                title: "Squad Championship | Mobile | Pro",
-                startTime: "2026-09-18T12:30:00", 
-                winPrize: "00 TK",
+                title: "CS Custom | Mobile | Pro",
+                startTime: "2026-09-19T10:00:00", 
+                winPrize: "800 TK",
                 entryFee: "00 TK",
-                perKill: "00 TK",
-                map: "Bermuda",
+                perKill: "10 TK",
+                map: "Kalahari",
                 version: "MOBILE",
+                maxSlots: 8,
+                slotType: "Players",
                 roomId: "8885552",
-                roomPass: "5678"
+                roomPass: "5678",
+                matchVersion: 1 // Match update check korar jonno
             }
         ];
 
         let joinedMatches = JSON.parse(localStorage.getItem("joined_matches")) || {};
+        let matchJoinedCounts = JSON.parse(localStorage.getItem("match_joined_counts")) || { 1: 2, 2: 4 };
+        let storedMatchVersions = JSON.parse(localStorage.getItem("match_versions")) || {};
+
+        // Check and Reset if match is updated
+        matchesData.forEach(match => {
+            if (storedMatchVersions[match.id] !== match.matchVersion) {
+                joinedMatches[match.id] = false; // Reset join status
+                storedMatchVersions[match.id] = match.matchVersion;
+            }
+        });
+        localStorage.setItem("joined_matches", JSON.stringify(joinedMatches));
+        localStorage.setItem("match_versions", JSON.stringify(storedMatchVersions));
 
         window.openMatchList = function(category) {
             document.getElementById('dashboard').style.display = 'none';
@@ -628,14 +691,34 @@
                 activeCount++;
                 const isJoined = joinedMatches[match.id];
                 const tenMinutes = 10 * 60 * 1000;
+                
+                let currentJoined = matchJoinedCounts[match.id] || 0;
+                let percent = (currentJoined / match.maxSlots) * 100;
+                let isFull = currentJoined >= match.maxSlots;
 
-                // শর্ত: ইউজার জয়েন করা থাকতে হবে এবং ম্যাচ শুরু হতে ১০ মিনিট বা তার কম সময় বাকি থাকতে হবে (অথবা ম্যাচ অলরেডি শুরু হয়ে গেছে)
+                // Room ID & Passbox with '?' icon check logic
                 let roomInfoHTML = '';
-                if (isJoined && diffTime <= tenMinutes) {
+                if (diffTime <= tenMinutes) {
+                    if (isJoined) {
+                        roomInfoHTML = `
+                            <div class="room-details-box" id="room_box_${match.id}">
+                                <span>Room ID: <b>${match.roomId}</b></span>
+                                <span>Pass: <b>${match.roomPass}</b></span>
+                            </div>
+                        `;
+                    } else {
+                        roomInfoHTML = `
+                            <div class="room-details-box" id="room_box_${match.id}">
+                                <span>Room ID: <b>?</b></span>
+                                <span>Pass: <b>?</b></span>
+                            </div>
+                        `;
+                    }
+                } else {
                     roomInfoHTML = `
                         <div class="room-details-box" id="room_box_${match.id}">
-                            <span>Room ID: <b>${match.roomId}</b></span>
-                            <span>Pass: <b>${match.roomPass}</b></span>
+                            <span>Room ID: <b>?</b></span>
+                            <span>Pass: <b>?</b></span>
                         </div>
                     `;
                 }
@@ -645,8 +728,10 @@
                     actionButtonHTML = `<button class="match-action-btn started">Match Started</button>`;
                 } else if (isJoined) {
                     actionButtonHTML = `<button class="match-action-btn" style="background:#17a2b8;" id="timer_${match.id}">Loading Timer...</button>`;
+                } else if (isFull) {
+                    actionButtonHTML = `<button class="match-action-btn full">SLOT FULL</button>`;
                 } else {
-                    actionButtonHTML = `<button class="match-action-btn" onclick="joinMatch(${match.id}, '${category}')">JOIN MATCH (${match.entryFee})</button>`;
+                    actionButtonHTML = `<button class="match-action-btn" onclick="handleJoinClick(${match.id}, '${category}')">JOIN MATCH (${match.entryFee})</button>`;
                 }
 
                 const cardHTML = `
@@ -667,10 +752,14 @@
                             <span>Map: <b>${match.map}</b></span>
                             <span>Version: <b>${match.version}</b></span>
                         </div>
+                        <div class="slot-info-row">
+                            <span>${match.slotType} Joined</span>
+                            <span id="slot_text_${match.id}">${currentJoined} / ${match.maxSlots}</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" id="progress_${match.id}" style="width: ${percent}%;"></div></div>
                         <div id="room_container_${match.id}">
                             ${roomInfoHTML}
                         </div>
-                        <div class="progress-bar"><div class="progress-fill"></div></div>
                         ${actionButtonHTML}
                     </div>
                 `;
@@ -682,26 +771,90 @@
             }
         }
 
-        window.joinMatch = function(matchId, category) {
+        let selectedMatchToJoin = null;
+        let selectedCategoryToJoin = null;
+
+        window.handleJoinClick = function(matchId, category) {
+            let match = matchesData.find(m => m.id === matchId);
+            let currentJoined = matchJoinedCounts[matchId] || 0;
+
+            if (currentJoined >= match.maxSlots) {
+                alert("Sorry, slots are full!");
+                renderMatches(category);
+                return;
+            }
+
+            if (category === "BR Match") {
+                // BR Match Squad: 4 jon player er name and UID input neyar modal open hobe
+                selectedMatchToJoin = matchId;
+                selectedCategoryToJoin = category;
+                openSquadModal();
+            } else {
+                // Clash Squad: Direct join
+                confirmJoinMatch(matchId, category);
+            }
+        }
+
+        function openSquadModal() {
+            const container = document.getElementById('squadInputsContainer');
+            container.innerHTML = '';
+            for(let i = 1; i <= 4; i++) {
+                container.innerHTML += `
+                    <div class="squad-input-group">
+                        <label>Player ${i} Details</label>
+                        <input type="text" id="p_name_${i}" placeholder="Player ${i} Name" style="margin-bottom:4px;">
+                        <input type="text" id="p_uid_${i}" placeholder="Player ${i} Free Fire UID">
+                    </div>
+                `;
+            }
+            document.getElementById('squadModal').style.display = 'flex';
+        }
+
+        window.closeSquadModal = function() {
+            document.getElementById('squadModal').style.display = 'none';
+        }
+
+        document.getElementById('submitSquadBtn').addEventListener('click', () => {
+            for(let i = 1; i <= 4; i++) {
+                let name = document.getElementById(`p_name_${i}`).value.trim();
+                let uid = document.getElementById(`p_uid_${i}`).value.trim();
+                if(!name || !uid) {
+                    alert(`Please fill in Name and UID for Player ${i}!`);
+                    return;
+                }
+            }
+            document.getElementById('squadModal').style.display = 'none';
+            confirmJoinMatch(selectedMatchToJoin, selectedCategoryToJoin);
+        });
+
+        function confirmJoinMatch(matchId, category) {
+            if (joinedMatches[matchId]) {
+                alert("You have already joined this match!");
+                return;
+            }
+
             joinedMatches[matchId] = true;
             localStorage.setItem("joined_matches", JSON.stringify(joinedMatches));
+
+            if (!matchJoinedCounts[matchId]) matchJoinedCounts[matchId] = 0;
+            matchJoinedCounts[matchId]++;
+            localStorage.setItem("match_joined_counts", JSON.stringify(matchJoinedCounts));
+
             alert("Successfully joined the match! Room ID and Password will appear 10 minutes before the match starts.");
             renderMatches(category);
         }
 
-        // Live Timer & Dynamic Room ID Updater
+        // Live Timer & Dynamic Room ID / Slot Updater
         setInterval(() => {
             const now = new Date().getTime();
             const tenMinutes = 10 * 60 * 1000;
 
             matchesData.forEach(match => {
+                const matchTime = new Date(match.startTime).getTime();
+                const dist = matchTime - now;
+
                 if (joinedMatches[match.id]) {
                     const timerElem = document.getElementById(`timer_${match.id}`);
-                    const roomContainer = document.getElementById(`room_container_${match.id}`);
-                    const matchTime = new Date(match.startTime).getTime();
-                    const dist = matchTime - now;
-
-                    // টাইমার আপডেট
                     if (timerElem) {
                         if (dist > 0) {
                             const hours = Math.floor(dist / (1000 * 60 * 60));
@@ -713,14 +866,25 @@
                             timerElem.className = "match-action-btn started";
                         }
                     }
+                }
 
-                    // ১০ মিনিট বা তার কম বাকি থাকলে এবং রুম কন্টেইনার খালি থাকলে স্বয়ংক্রিয়ভাবে রুম আইডি শো করবে
-                    if (roomContainer && dist <= tenMinutes) {
-                        if (!document.getElementById(`room_box_${match.id}`)) {
+                const roomContainer = document.getElementById(`room_container_${match.id}`);
+                if (roomContainer) {
+                    if (joinedMatches[match.id] && dist <= tenMinutes) {
+                        if (!document.getElementById(`room_box_${match.id}`) || document.getElementById(`room_box_${match.id}`).innerHTML.includes("<b>?</b>")) {
                             roomContainer.innerHTML = `
                                 <div class="room-details-box" id="room_box_${match.id}">
                                     <span>Room ID: <b>${match.roomId}</b></span>
                                     <span>Pass: <b>${match.roomPass}</b></span>
+                                </div>
+                            `;
+                        }
+                    } else {
+                        if (!document.getElementById(`room_box_${match.id}`) || !document.getElementById(`room_box_${match.id}`).innerHTML.includes("<b>?</b>")) {
+                            roomContainer.innerHTML = `
+                                <div class="room-details-box" id="room_box_${match.id}">
+                                    <span>Room ID: <b>?</b></span>
+                                    <span>Pass: <b>?</b></span>
                                 </div>
                             `;
                         }
@@ -759,5 +923,6 @@
     </script>
 </body>
 </html>
+
 
 
